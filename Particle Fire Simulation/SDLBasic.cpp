@@ -24,8 +24,7 @@ int main(int argc, char* args[]) {
 		//time elapsed after the program ran
 		int elapsed = SDL_GetTicks();
 
-		screen.clear();
-		swarm.update();
+		swarm.update(elapsed);
 
 		//multiplied by 0.001 to avoid rapid changes in sin values
 		//ensures the value is between 0 and 255.
@@ -39,13 +38,13 @@ int main(int argc, char* args[]) {
 
 			//map particle space (from -1 to +1) to screen space (width by height)
 			int x = (particle.m_x + 1) * Screen::SCREEN_WIDTH/2;
-			int y = (particle.m_y + 1) * Screen::SCREEN_HEIGHT/2;
+			int y = particle.m_y * Screen::SCREEN_WIDTH /2 + Screen::SCREEN_HEIGHT/2;
 
 			screen.setPixel(x, y, red, green, blue);
 		}
 
 		/*update particles*/
-
+		screen.boxBlur();
 		
 		/*draw particles*/
 		
